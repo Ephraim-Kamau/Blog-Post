@@ -3,6 +3,7 @@ from .config import DevConfig
 from flask_bootstrap import Bootstrap
 
 
+
 # Initializing application
 app = Flask(__name__)
 
