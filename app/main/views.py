@@ -1,13 +1,11 @@
 from flask import render_template
-from app import app
-from .models import review
+from . import main
+from ..models import Review
 from .forms import ReviewForm
 
 
-Review = review.Review
-
 # Views
-@app.route('/')
+@main.route('/')
 def index():
 
     '''
@@ -16,7 +14,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/blog/review/new/<int:id>', methods = ['GET','POST'])
+@main.route('/blog/review/new/<int:id>', methods = ['GET','POST'])
 def new_review(id):
     form = ReviewForm()
     blog = get_blog(id)
@@ -31,7 +29,7 @@ def new_review(id):
     title = f'{blog.title} review'
     return render_template('new_review.html',title = title, review_form=form, blog=blog)    
 
-@app.route('/blog/<int:id>')
+@main.route('/blog/<int:id>')
 def blog(id):
 
     '''
