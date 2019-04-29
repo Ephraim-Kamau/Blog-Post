@@ -1,7 +1,6 @@
 import unittest
-from models import blog
+from app.models import Blog
 
-Blog = blog.Blog
 
 class BlogTest(unittest.TestCase):
     '''
