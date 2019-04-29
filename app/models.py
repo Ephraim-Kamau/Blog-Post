@@ -2,6 +2,7 @@ from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 from . import login_manager
+from datetime import datetime
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -16,31 +17,37 @@ class Blog:
         self.title = title
         self.author = author
 
-class Review:
+class Review(db.Model):
 
-    all_reviews = []
+    __tablename__ = 'reviews'
 
-    def __init__(self, blog_id, title):
-        self.blog_id = blog_id 
-        self.title = title
+    id = db.Column(db.Integer,primary_key = True)
+    blog_id = db.Column(db.Integer)
+    blog_title = db.Column(db.String)
+    blog_review = db.Column(db.String)
+    posted = db.Column(db.DateTime,default=datetime.utcnow)
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+
 
     def save_review(self):
-        Review.all_reviews.append(self)
+        db.session.add(self)
+        db.session.commit()
 
     @classmethod
     def clear_reviews(cls):
-        Review.all_reviews.clear()   
+        Review.all_reviews.clear() 
 
     @classmethod
+    def delete_review(cls,id):
+        review = Review.query.filter_by(id=id).first()
+        db.session.delete(review)
+        db.session.commit()       
+
+    
+    @classmethod
     def get_reviews(cls,id):
-
-        response = []
-
-        for review in cls.all_reviews:
-            if review.blog_id == id:
-                response.append(review)
-
-        return response           
+        reviews = Review.query.filter_by(blog_id=id).all()
+        return reviews        
 
 class Role(db.Model):
     __tablename__ = 'roles'
@@ -62,6 +69,8 @@ class User(UserMixin, db.Model):
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     pass_secure = db.Column(db.String(255))
+
+    reviews = db.relationship('Review',backref = 'user',lazy = "dynamic")
 
     @property
     def password(self):

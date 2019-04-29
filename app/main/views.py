@@ -2,7 +2,7 @@ from flask import render_template,request,redirect,url_for,abort
 from . import main
 from ..models import Review,User
 from .forms import ReviewForm,UpdateProfile
-from flask_login import login_required
+from flask_login import login_required,current_user
 from .. import db,photos
 
 
@@ -25,9 +25,13 @@ def new_review(id):
     if form.validate_on_submit():
         title = form.title.data
         review = form.review.data
-        new_review = Review(blog.id,title,review)
+
+        #Updated review instance
+        new_review = Review(blog_id=blog_id,blog_title=blog_title,blog_review=review,user=current_user)
+
+        #save review method
         new_review.save_review()
-        return redirect(url_for('blog',id = blog.id ))
+        return redirect(url_for('.blog',id = blog.id ))
 
     title = f'{blog.title} review'
     return render_template('new_review.html',title = title, review_form=form, blog=blog)    
