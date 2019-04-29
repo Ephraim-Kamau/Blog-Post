@@ -1,4 +1,4 @@
-start.sh
-.vscode
-virtual/
-*.pyc
+start.sh 
+.vscode 
+virtual/ 
+*.pyc 
