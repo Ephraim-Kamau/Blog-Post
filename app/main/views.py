@@ -2,6 +2,7 @@ from flask import render_template,request,redirect,url_for
 from . import main
 from ..models import Review
 from .forms import ReviewForm
+from flask_login import login_required
 
 
 # Views
@@ -15,6 +16,7 @@ def index():
 
 
 @main.route('/blog/review/new/<int:id>', methods = ['GET','POST'])
+@login_required
 def new_review(id):
     form = ReviewForm()
     blog = get_blog(id)
