@@ -3,7 +3,7 @@ from . import main
 from ..models import Review,User
 from .forms import ReviewForm,UpdateProfile
 from flask_login import login_required
-from .. import db
+from .. import db,photos
 
 
 # Views
@@ -44,7 +44,15 @@ def blog(id):
 
     return render_template('blog.html',title = title,blog = blog,reviews = reviews) 
 
-@main.route('/user/<uname>/update',methods = ['GET','POST'])
+@main.route("/profile/<uname>")
+def profile(uname):
+    user=User.query.filter_by(username = uname).first()
+    if user is None:
+        abort(404)
+
+    return render_template("profile/profile.html",user=user)    
+
+@main.route('/profile/<uname>/update',methods = ['GET','POST'])
 @login_required
 def update_profile(uname):
     user = User.query.filter_by(username = uname).first()
@@ -55,7 +63,7 @@ def update_profile(uname):
 
     if form.validate_on_submit():
         user.bio = form.bio.data
-
+       
         db.session.add(user)
         db.session.commit()
 
@@ -63,10 +71,17 @@ def update_profile(uname):
 
     return render_template('profile/update.html',form =form)
 
-@main.route("/profile/<uname>")
-def profile(uname):
-    user=User.query.filter_by(username = uname).first()
-    if user is None:
-        abort(404)
+@main.route('/user/<uname>/update/pic',methods= ['POST'])
+@login_required
+def update_pic(uname):
+    user = User.query.filter_by(username = uname).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.profile_pic_path = path
+        db.session.commit()
+    return redirect(url_for('main.profile',uname=uname))
 
-    return render_template("profile/profile.html",user=User)
+
+   
+

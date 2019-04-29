@@ -7,6 +7,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://ephraim:server123@localhost/blogs'
+    UPLOADED_PHOTOS_DEST ='app/static/photos'
 
 
 
