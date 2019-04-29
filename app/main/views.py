@@ -1,6 +1,6 @@
-from flask import render_template,request,redirect,url_for
+from flask import render_template,request,redirect,url_for,abort
 from . import main
-from ..models import Review
+from ..models import Review,User
 from .forms import ReviewForm
 from flask_login import login_required
 
@@ -41,4 +41,13 @@ def blog(id):
     title = f'{blog.title}'
     reviews = Review.get_reviews(blog.id)
 
-    return render_template('blog.html',title = title,blog = blog,reviews = reviews)    
+    return render_template('blog.html',title = title,blog = blog,reviews = reviews) 
+
+@main.route('/user/<uname>')
+def profile(uname):
+    user = User.query.filter_by(username = uname).first()
+
+    if user is None:
+        abort(404)
+
+    return render_template("profile/profile.html", user = user)
