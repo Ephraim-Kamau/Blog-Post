@@ -7,10 +7,10 @@ This is an app that allows users to create and post their opinions on any topic 
 
 |       User                     |         User Action                |    Output                                                 |
 |--------------------------------|------------------------------------|-----------------------------------------------------------|
-| Writer                         | Create an Account                  | Fill the registration form and sign up                    |
+|     Writer                     | Create an Account                  | Fill the registration form and sign up                    |
 |                                | Write new blog posts               | Click on Add a new Blog to add a new post                 |
 |                                | Delete a blog post                 | On the blog post, click on the delete post button         |
-|                                | Delete comments from a post        | On the comments section, click the delete comment button  || Users                          | View a blog post on the site       | Open home page to view all blog posts                     ||                                | Comment on a blog post             | Click on the comment button                               |
+|                                | Delete comments from a post        | On the comments section, click the delete comment button  ||     Users                      | View a blog post on the site       | Open home page to view all blog posts                     ||                                | Comment on a blog post             | Click on the comment button                               |
 |                                | Subscribe to the blog              | Fill in the subscription form and subscribe               |
 
 ### Setup/Installation requirements
