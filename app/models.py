@@ -8,14 +8,29 @@ from datetime import datetime
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-class Blog:
-    '''
-    Blog class to define Blog objects
-    '''
-    def __init__(self, id, title, author):
-        self.id = id
-        self.title = title
-        self.author = author
+class Blog(db.Model):
+    
+    __tablename__ = 'blog'
+       
+    id = db.Column(db.Integer,primary_key = True) 
+    blog_title = db.Column(db.String)
+    blog_author = db.Column(db.String)
+    blog_description = db.Column(db.String) 
+    posted = db.Column(db.DateTime,default=datetime.utcnow)
+
+    def save_blog(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def clear_blog(cls):
+        Blog.all_blogs.clear() 
+
+    @classmethod
+    def delete_blog(cls,id):
+        blog = blog.query.filter_by(id=id).first()
+        db.session.delete(blog)
+        db.session.commit()  
 
 class Review(db.Model):
 

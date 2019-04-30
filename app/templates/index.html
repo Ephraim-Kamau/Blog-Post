@@ -12,9 +12,46 @@
 {% block content %}
 
 <div class="col-xs-12 col-sm-12">
-    <div class="panel style="style="border: 3px solid #f2f2f2; padding:20px; margin-top:10px;">
-            <img class="img-right img-responsive" src="{{url_for('static', filename='welcome.jpg' )}}" 
-            height="500px", width="900px" />
+    <div class="panel style="style="border: 3px solid #f2f2f2;  margin-top:10px;">
+            <img class="img-center img-responsive" src="{{url_for('static', filename='hello1.jpg' )}}" 
+            height="300px", width="1400px"/>
     </div>
+</div>
+    <div class = "container">
+    <div class="col-xs-12 col-sm-6">
+    <h2>My First Blog Post</h2>
+        <h3><em>By Ephraim</em></h3>
+        <div class="content">
+            <p>This is my first blog post.<br>
+                I hope all goes well.<br>
+                Wish me luck.<p style="font-size:100px">&#128540; &#128512;</p>
+
+            </p>
+        </div>
+        <div class="links">
+            <a href="authenticate/login" class="btn btn-info">Comment</a>
+        </div>
+        </div>
+    </div>
+
+    <div class = "container">
+        <div class="col-xs-12 col-sm-12">
+        <h2>Moringa School</h2>
+            <h3><em>By a Graduate</em></h3>
+            <div class="content">
+                <p>Moringa school was tough.<br>
+                    But we still managed to finish.<br>
+                    It's now time to secure the bag.<br>
+                    <p style="font-size:100px">&#128526; &#128526;</p>
+    
+
+                </p>
+            </div>
+            <div class="links">
+                <a href="authenticate/login" class="btn btn-info">Comment</a>
+            </div>
+            </div>
+        </div>
+    
 
 {% endblock%}       

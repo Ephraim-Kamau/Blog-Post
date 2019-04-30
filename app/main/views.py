@@ -1,7 +1,7 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 from ..models import Review,User
-from .forms import ReviewForm,UpdateProfile
+from .forms import ReviewForm,UpdateProfile,BlogForm
 from flask_login import login_required,current_user
 from .. import db,photos
 import markdown2  
@@ -94,6 +94,24 @@ def single_review(id):
         abort(404)
     format_review = markdown2.markdown(review.movie_review,extras=["code-friendly", "fenced-code-blocks"])
     return render_template('review.html',review = review,format_review=format_review)    
+
+@main.route('/blog/new', methods =['GET','POST'])
+@login_required
+def new_blog():
+
+    form = BlogForm()
+
+    if form.validate_on_submit():
+        title = form.title.data
+        description = form.description.data
+        author = form
+        user = current_user
+        blog = Blog(title = form.title.data, author = form.author.data, description = form.description.data)
+
+        db.session.add(new_blog)
+        db.session.commit()
+        return redirect(url_for('main.blog'),blogs=blogs)
+    return render_template('new_blog.html', form=form)    
 
 
    
