@@ -42,7 +42,7 @@ There are currently no known bugs in the application
 
 ### Support and Contact Details
 
-For more information, questions or help, feel free to contact me on via email me at kephraim19@gmail.com
+For more information, questions or help, feel free to contact me via email: kephraim19@gmail.com
 
 ### Licence
 Copyright(c) 2019 Ephraim Kamau
